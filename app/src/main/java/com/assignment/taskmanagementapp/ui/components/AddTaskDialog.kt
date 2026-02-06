@@ -33,6 +33,7 @@ import com.assignment.taskmanagementapp.ui.viewmodels.AddTaskViewModel
 fun AddTaskDialog(
     vm: AddTaskViewModel,
     onAdd: () -> Unit,
+    onEdit: () -> Unit,
 ) {
     val PADDING_MEDIUM = 12.dp
     val uiState by vm.newTask.collectAsState()
@@ -45,20 +46,26 @@ fun AddTaskDialog(
     }
 
     AlertDialog(
-        onDismissRequest = { vm.closeDialog() },
+        onDismissRequest = {
+            vm.closeDialog()
+        },
         confirmButton = {
             TextButton(
                 onClick = {
-                    onAdd()
+                    if (vm.isEditMode) {
+                        onEdit()
+                    } else {
+                        onAdd()
+                    }
                     vm.closeDialog()
                 },
-            ) { Text("Add") }
+            ) { Text(if (vm.isEditMode) "Edit" else "Add") }
         },
         dismissButton = {
             TextButton(onClick = { vm.closeDialog() }) { Text("Cancel") }
         },
         title = {
-            Text("Add Task")
+            Text(if (vm.isEditMode) "Edit Task" else "Add Task")
         },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(PADDING_MEDIUM)) {

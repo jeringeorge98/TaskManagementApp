@@ -16,7 +16,7 @@ class HomeViewModel(
     val tasks = _tasks.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     fun addNewTask(task: NewTaskUi) {
-        if (task.title.isBlank() || task.description.isBlank()) return
+        if (task.title.isBlank()) return
         val task = Tasks(title = task.title, description = task.description, isDone = task.isDone)
         viewModelScope.launch {
             taskRepository.upsertTask(task)
@@ -24,6 +24,7 @@ class HomeViewModel(
     }
 
     fun updateTask(task: Tasks) {
+        if (task.title.isBlank()) return
         viewModelScope.launch {
             taskRepository.upsertTask(task)
         }
