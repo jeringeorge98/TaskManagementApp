@@ -1,5 +1,6 @@
 package com.assignment.taskmanagementapp.ui.screens
 
+import androidx.annotation.Dimension
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Column
@@ -25,14 +26,20 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.assignment.taskmanagementapp.domain.model.Tasks
-import com.assignment.taskmanagementapp.ui.components.AddTaskDialog
+import com.assignment.taskmanagementapp.ui.components.AddEditTaskDialog
 import com.assignment.taskmanagementapp.ui.components.TaskItemRow
 import com.assignment.taskmanagementapp.ui.viewmodels.AddTaskViewModel
 import com.assignment.taskmanagementapp.ui.viewmodels.HomeViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+private object Dimensions {
+    val PADDING_LARGE = 16.dp
+    val PADDING_MEDIUM = 8.dp
+}
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
@@ -47,8 +54,9 @@ fun HomeScreen(
         }
     }) { paddingValues ->
         Column(Modifier.padding(paddingValues)) {
+            SearchBar(vm)
             AllTaskList(vm, addVm)
-            AddTaskDialog(
+            AddEditTaskDialog(
                 addVm,
                 onAdd = {
                     vm.addNewTask(addVm.newTask.value)
@@ -70,20 +78,21 @@ fun HomeScreen(
     }
 }
 
-// @Composable
-// fun SearchBar(vm: HomeViewModel) {
-//    OutlinedTextField(
-//        value = vm.query.collectAsState().value,
-//        onValueChange = { vm.updateSearchQuery(it) },
-//        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-//        placeholder = { Text("Search items") },
-//        modifier =
-//            Modifier
-//                .fillMaxWidth()
-//                .padding(horizontal = Dimensions.PADDING_LARGE, vertical = Dimensions.PADDING_MEDIUM),
-//        singleLine = true,
-//    )
-// }
+@Suppress("ktlint:standard:function-naming")
+@Composable
+fun SearchBar(vm: HomeViewModel) {
+    OutlinedTextField(
+        value = vm.query.collectAsState().value,
+        onValueChange = { vm.updateSearchQuery(it) },
+        leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+        placeholder = { Text("Search items") },
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = Dimensions.PADDING_LARGE, vertical = Dimensions.PADDING_MEDIUM),
+        singleLine = true,
+    )
+}
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
@@ -91,11 +100,11 @@ fun AllTaskList(
     vm: HomeViewModel,
     addVm: AddTaskViewModel,
 ) {
-    val tasks by vm.tasks.collectAsState()
+    val filteredTasks by vm.filteredItems.collectAsState()
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
     ) {
-        items(tasks, key = { it.id }) { item ->
+        items(filteredTasks, key = { it.id }) { item ->
             TaskItemRow(
                 item = item,
                 onTaskDone = {

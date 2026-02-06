@@ -2,7 +2,6 @@ package com.assignment.taskmanagementapp.data.local.room.mappers
 
 import com.assignment.taskmanagementapp.common.formatDate
 import com.assignment.taskmanagementapp.data.local.room.entity.TaskEntity
-import com.assignment.taskmanagementapp.domain.model.Status
 import com.assignment.taskmanagementapp.domain.model.Tasks
 
 fun Tasks.toEntity(): TaskEntity =

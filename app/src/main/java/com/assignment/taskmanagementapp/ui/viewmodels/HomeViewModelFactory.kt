@@ -13,9 +13,10 @@ class HomeViewModelFactory(
         modelClass: Class<T>,
         extras: CreationExtras,
     ): T {
-//        val handle = extras.createSavedStateHandle()
+        val handle = extras.createSavedStateHandle()
         return HomeViewModel(
             taskRepository = taskRepository,
+            savedStateHandle = handle,
         ) as T
     }
 }

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.assignment.taskmanagementapp.common.formatDate
 import com.assignment.taskmanagementapp.domain.model.Tasks
 
 @Suppress("ktlint:standard:function-naming")
@@ -101,15 +102,25 @@ fun TaskItemRow(
                     text = item.description,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
+                    maxLines = 3,
                 )
             }
 
-            Checkbox(
-                checked = item.isDone,
-                onCheckedChange = { onTaskDone(it) },
-                modifier = Modifier.scale(checkboxScale),
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = formatDate(item.timeStamp),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                )
+                Checkbox(
+                    checked = item.isDone,
+                    onCheckedChange = { onTaskDone(it) },
+                    modifier = Modifier.scale(checkboxScale),
+                )
+            }
         }
     }
 }
