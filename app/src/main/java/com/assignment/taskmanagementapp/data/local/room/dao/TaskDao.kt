@@ -18,8 +18,8 @@ interface TaskDao {
     fun getById(id: Long): Flow<TaskEntity>?
 
     @Upsert
-    fun upsert(task: TaskEntity): Long
+    suspend fun upsert(task: TaskEntity): Long
 
     @Delete
-    fun delete(task: TaskEntity)
+    suspend fun delete(task: TaskEntity)
 }

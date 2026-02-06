@@ -10,13 +10,15 @@ fun Tasks.toEntity(): TaskEntity =
         title = this.title,
         description = this.description,
         isDoneStatus = this.isDone,
-        timestamp = System.currentTimeMillis(),
+        timestamp = this.timeStamp,
+        id = this.id,
     )
 
 fun TaskEntity.toDomain(): Tasks =
     Tasks(
+        id = this.id,
         title = this.title,
         isDone = this.isDoneStatus,
         description = this.description,
-        date = formatDate(this.timestamp),
+        timeStamp = this.timestamp,
     )

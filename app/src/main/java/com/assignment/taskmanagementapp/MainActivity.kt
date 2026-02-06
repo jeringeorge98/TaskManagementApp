@@ -10,17 +10,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.assignment.taskmanagementapp.ui.screens.HomeScreen
 import com.assignment.taskmanagementapp.ui.theme.TaskManagementAppTheme
+import com.assignment.taskmanagementapp.ui.viewmodels.HomeViewModelFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val app = (application as TaskManagementApplication)
         setContent {
             TaskManagementAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(Modifier.padding(innerPadding))
+                    HomeScreen(
+                        Modifier.padding(innerPadding),
+                        vm =
+                            viewModel(
+                                factory =
+                                    HomeViewModelFactory(
+                                        app.taskRepository,
+                                    ),
+                            ),
+                    )
                 }
             }
         }

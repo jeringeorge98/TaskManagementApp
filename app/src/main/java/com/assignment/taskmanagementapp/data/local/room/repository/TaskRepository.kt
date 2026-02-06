@@ -1,13 +1,12 @@
 package com.assignment.taskmanagementapp.data.local.room.repository
 
 import com.assignment.taskmanagementapp.domain.model.Tasks
+import kotlinx.coroutines.flow.Flow
 
 interface TaskRepository {
-    fun addTask(task: Tasks)
+    suspend fun deleteTask(task: Tasks)
 
-    fun deleteTask(task: Tasks)
+    suspend fun upsertTask(task: Tasks)
 
-    fun updateTask(task: Tasks)
-
-    fun getAllTasks(): List<Tasks>
+    fun getAllTasks(): Flow<List<Tasks>>
 }
