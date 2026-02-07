@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.Date
 
+private val dateFormatter by lazy { SimpleDateFormat("dd/MM/yyyy") }
+
 @SuppressLint("SimpleDateFormat")
 fun formatDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("dd/MM/yyyy")
-    val netDate = Date(timestamp)
-    return sdf.format(netDate)
+    return dateFormatter.format(Date(timestamp))
 }

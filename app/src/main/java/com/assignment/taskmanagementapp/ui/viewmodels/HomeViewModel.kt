@@ -23,13 +23,14 @@ class HomeViewModel(
     val tasks = _tasks.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
     val query = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
 
+    // filtered from search query
     val filteredItems =
         combine(query, _tasks) { queryString, combinedItems ->
             combinedItems.filter { it.title.contains(queryString, ignoreCase = true) }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
 
     fun updateSearchQuery(newQuery: String) {
-        savedStateHandle[KEY_SEARCH_QUERY] = newQuery
+        savedStateHandle[KEY_SEARCH_QUERY] = newQuery // usings savedstate handle to preserve query on rotation changes
     }
 
     fun addNewTask(task: NewTaskUi) {

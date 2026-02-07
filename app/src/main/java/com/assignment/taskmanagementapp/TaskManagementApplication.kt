@@ -4,6 +4,10 @@ import android.app.Application
 import com.assignment.taskmanagementapp.data.local.room.AppDatabaseProvider
 import com.assignment.taskmanagementapp.data.local.room.repository.TaskRepositoryImpl
 
+/**
+ * Application class for all the global dependencies needed.
+ *
+ */
 class TaskManagementApplication : Application() {
     private val database by lazy { AppDatabaseProvider.getDatabase(this) }
     val taskRepository by lazy {

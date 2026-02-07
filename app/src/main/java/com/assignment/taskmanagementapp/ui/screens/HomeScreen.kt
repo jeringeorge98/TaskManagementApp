@@ -2,7 +2,9 @@ package com.assignment.taskmanagementapp.ui.screens
 
 import androidx.annotation.Dimension
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.copy
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +16,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -24,8 +27,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.assignment.taskmanagementapp.domain.model.Tasks
@@ -89,10 +94,18 @@ fun SearchBar(vm: HomeViewModel) {
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = Dimensions.PADDING_LARGE, vertical = Dimensions.PADDING_MEDIUM),
+                .padding(
+                    horizontal = Dimensions.PADDING_LARGE,
+                    vertical = Dimensions.PADDING_MEDIUM,
+                ),
         singleLine = true,
     )
 }
+
+// @Composable
+// fun EmptyList(){
+//
+// }
 
 @Suppress("ktlint:standard:function-naming")
 @Composable
@@ -101,22 +114,40 @@ fun AllTaskList(
     addVm: AddTaskViewModel,
 ) {
     val filteredTasks by vm.filteredItems.collectAsState()
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-    ) {
-        items(filteredTasks, key = { it.id }) { item ->
-            TaskItemRow(
-                item = item,
-                onTaskDone = {
-                    vm.toggleStatus(item)
-                },
-                onDelete = {
-                    vm.deleteTask(item)
-                },
-                onClick = {
-                    addVm.openDialog(item)
-                },
+    if (filteredTasks.isEmpty()) {
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 48.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = "You have no tasks.\nPress the + button to add a task",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                textAlign = TextAlign.Center,
             )
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            items(filteredTasks, key = { it.id }) { item ->
+                TaskItemRow(
+                    item = item,
+                    onTaskDone = {
+                        vm.toggleStatus(item)
+                    },
+                    onDelete = {
+                        vm.deleteTask(item)
+                    },
+                    onClick = {
+                        addVm.openDialog(item) // to edit
+                    },
+                )
+            }
         }
     }
 }
