@@ -1,7 +1,7 @@
 # Task Management App
 A Task management app .
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 - **UI:** [Jetpack Compose](https://developer.android.com/jetpack/compose) 
 - **Persistence:** [Android Room](https://developer.android.com/training/data-storage/room) 
@@ -9,7 +9,7 @@ A Task management app .
 - **Asynchronous Programming:** [Kotlin Coroutines & Flow](https://kotlinlang.org/docs/flow.html) – For handling asynchronous operations and reactive datastreaming
 - **Dependency Injection:** Manual DI with Factory pattern for ViewModel creation
 - **Testing:** [JUnit](https://junit.org/), 
-## 🏗️ Architecture
+##  Architecture
 
 The app follows the **MVVM (Model-View-ViewModel)** architectural pattern combined with the **Repository Pattern** to ensure separation of concerns and maintainable code.
 
