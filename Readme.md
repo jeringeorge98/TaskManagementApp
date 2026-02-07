@@ -15,6 +15,8 @@ The app follows the **MVVM (Model-View-ViewModel)** architectural pattern combin
 
 ### MVVM Architecture Implementation:
 
+![System Architecture](Architecture-diagramn.png)]
+
 #### **View Layer (UI)**
 - Built entirely with **Jetpack Compose** for modern, declarative UI
 - Observes state from ViewModels using `collectAsState()`
