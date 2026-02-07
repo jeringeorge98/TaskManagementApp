@@ -6,7 +6,7 @@ A Task management app .
 - **UI:** [Jetpack Compose](https://developer.android.com/jetpack/compose) 
 - **Persistence:** [Android Room](https://developer.android.com/training/data-storage/room) 
 - **Language:** [Kotlin](https://kotlinlang.org/)
-- **Asynchronous Programming:** [Kotlin Coroutines & Flow](https://kotlinlang.org/docs/flow.html) – For handling background operations and reactive data streams
+- **Asynchronous Programming:** [Kotlin Coroutines & Flow](https://kotlinlang.org/docs/flow.html) – For handling asynchronous operations and reactive datastreaming
 - **Dependency Injection:** Manual DI with Factory pattern for ViewModel creation
 - **Testing:** [JUnit](https://junit.org/), 
 ## 🏗️ Architecture
@@ -44,7 +44,7 @@ The app implements the **Repository Pattern** to centralize data operations and 
 
 ### Prerequisites
 - Android Studio 
-- Android SDK API 24 (Android 7.0) or higher
+- Android SDK API 24 (Android 7.0) or higher and JDK 11.0 or higher
 - Kotlin 1.9.0 or later
 
 ### Running the Application
@@ -52,7 +52,7 @@ The app implements the **Repository Pattern** to centralize data operations and 
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd android_projects
+   cd TaskManagementApp
    ```
 
 2. **Open in Android Studio:**
