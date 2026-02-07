@@ -74,4 +74,9 @@ dependencies {
     // Add KSP compiler (version from catalog)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.compose.material.icons.extended)
+    testImplementation(libs.turbine)
+//    testImplementation(libs.mockito.core) // Core Mockito library
+//    testImplementation(libs.mockito.kotlin) // Mockito-Kotlin extensions
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
 }

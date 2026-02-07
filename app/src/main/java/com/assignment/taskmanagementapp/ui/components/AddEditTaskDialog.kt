@@ -83,10 +83,10 @@ fun AddEditTaskDialog(
                     },
                     isError = descriptionError,
                     trailingIcon = {
-                        if (titleError) Icon(Icons.Default.Warning, contentDescription = null)
+                        if (descriptionError) Icon(Icons.Default.Warning, contentDescription = null)
                     },
                     supportingText = {
-                        if (titleError) Text("Please enter a description")
+                        if (descriptionError) Text("Please enter a description")
                     },
                     label = { Text("Task Description") },
                 )
